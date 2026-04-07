@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  netty:
+    connection-timeout: 600000
+
+spring:
+  application:
+    name: cyphershare-backend
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5GB
+      max-request-size: 5GB
+      file-size-threshold: -1
+  codec:
+    max-in-memory-size: 20MB
+
+cyphershare:
+  session:
+    timeout-minutes: 10
+    cleanup-interval-minutes: 5
+  license:
+    mock-key: CYPHERSHARE_BUSINESS_2026
+
+logging:
+  level:
+    com.cyphershare: DEBUG
+    org.springframework.web: INFO

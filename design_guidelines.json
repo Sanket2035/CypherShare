@@ -1,0 +1,105 @@
+{
+  "theme": "dark",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) mixed with Retro-Futurism (Terminal) variant",
+  "domain": "Tech / Security / File Transfer",
+  "colors": {
+    "background_base": "bg-slate-950",
+    "background_panel": "bg-slate-900/50",
+    "background_glass": "bg-slate-900/80 backdrop-blur-xl",
+    "text_primary": "text-slate-50",
+    "text_secondary": "text-slate-400",
+    "border_default": "border-slate-800",
+    "primary_accent": "text-cyan-400 bg-cyan-400/10 border-cyan-400/30",
+    "success_accent": "text-emerald-400 bg-emerald-400/10 border-emerald-400/30",
+    "warning_accent": "text-yellow-400 bg-yellow-400/10 border-yellow-400/30",
+    "error_accent": "text-red-400 bg-red-400/10 border-red-400/30"
+  },
+  "typography": {
+    "headings": {
+      "family": "font-sans",
+      "font_name": "Outfit",
+      "weights": ["font-light", "font-semibold", "font-black"],
+      "classes": "tracking-tight text-slate-50"
+    },
+    "body": {
+      "family": "font-sans",
+      "font_name": "Inter",
+      "weights": ["font-normal", "font-medium"],
+      "classes": "leading-relaxed text-slate-400"
+    },
+    "mono": {
+      "family": "font-mono",
+      "font_name": "JetBrains Mono",
+      "weights": ["font-medium"],
+      "classes": "tracking-wider uppercase text-cyan-400"
+    },
+    "sizes": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl",
+      "h3": "text-xl sm:text-2xl",
+      "body": "text-base sm:text-lg",
+      "small": "text-sm",
+      "tiny": "text-xs tracking-[0.2em] uppercase"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing Philosophy with Control Room Grid. No floating cards; utilize grid borders for a structured, technical appearance.",
+    "container_padding": "p-6 md:p-12",
+    "grid": {
+      "base": "grid grid-cols-1 md:grid-cols-12 gap-1 md:gap-px bg-slate-800 border border-slate-800",
+      "send_panel": "col-span-12 md:col-span-7 bg-slate-950 p-6 md:p-12",
+      "receive_panel": "col-span-12 md:col-span-5 bg-slate-950 p-6 md:p-12"
+    },
+    "alignment": "Left-align dense functional content. Center-align dropzone areas and code displays."
+  },
+  "surfaces_and_borders": {
+    "style": "Retro-Futurism / Terminal Look with Technical Grid Borders",
+    "cards": "rounded-none border border-slate-800 bg-slate-950 shadow-none hover:border-cyan-500/50 transition-colors",
+    "inputs": "rounded-none border-b border-slate-700 bg-transparent px-0 py-4 focus:ring-0 focus:border-cyan-400 transition-colors",
+    "buttons": "rounded-none px-6 py-3 font-mono text-sm tracking-widest uppercase transition-all",
+    "buttons_primary": "bg-cyan-500 text-slate-950 hover:bg-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.5)]",
+    "buttons_secondary": "border border-slate-700 text-slate-300 hover:border-slate-500 hover:text-white"
+  },
+  "components": {
+    "navigation": "Sticky top nav with crystal glassmorphism (bg-slate-950/80 backdrop-blur-xl border-b border-slate-800). Include logo with monospace font and a pulsing yellow dot for 'Active Sessions'.",
+    "upload_dropzone": "Large central dashed border area (border-dashed border-2 border-slate-700 hover:border-cyan-400 hover:bg-cyan-400/5). Include lucide-react upload icon.",
+    "code_display": "Massive typography (text-6xl md:text-8xl font-mono text-cyan-400). Add a subtle text-shadow or drop-shadow for a glowing effect.",
+    "code_input": "6 individual 1-character text inputs with massive monospace text, center-aligned, bottom border only. Auto-focus next input.",
+    "status_indicators": "Small monospace labels with blinking cursor/dots. e.g., '[WAITING FOR RECEIVER...]', '[TRANSFERRING]', '[COMPLETE]'. Colored text based on status."
+  },
+  "motion_and_interactions": {
+    "hover_states": "Hard cuts on color changes or fast transitions (150ms) to fit the technical vibe.",
+    "loaders": "ASCII or bracket-based loaders (e.g., [==  ] ) instead of standard circular spinners, or technical linear progress bars.",
+    "page_load": "Staggered fade-up for grid items. Use framer-motion.",
+    "code_reveal": "Scramble effect or rapid number cycling before revealing the final 6-digit code."
+  },
+  "icons_and_assets": {
+    "library": "lucide-react",
+    "style": "Technical, sharp, minimal. Use 1.5px stroke width."
+  },
+  "images": {
+    "secure_bg": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/9d0b437b-b74d-4690-b09d-ca5c3f596bb4/images/49a7bbbfbdfb7d7949ce9c2aed3a549061e5c591cbb388e6946c84b9f324f3e1.png",
+      "description": "Dark abstract technical background with subtle glowing data streams. Use as an ambient fixed background with low opacity (e.g., opacity-10 or mix-blend-screen) behind the main grid.",
+      "category": "background"
+    },
+    "cyber_padlock": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/9d0b437b-b74d-4690-b09d-ca5c3f596bb4/images/75978849ac40ae103c55cc7c36ab3bfb8007d6c1eb4dd982c9497270ecee70d4.png",
+      "description": "A glowing 3D holographic padlock over a dark metallic surface. Use as an accent image in the 'About Security' section or as a visual flair in the receive panel when waiting for a code.",
+      "category": "illustration"
+    }
+  },
+  "accessibility_and_testing": {
+    "contrast": "Ensure pure white text on slate-950 meets APCA standards. Highlight colors must remain readable.",
+    "data_testid_convention": "All interactive elements MUST include a data-testid attribute in kebab-case (e.g., 'upload-file-dropzone', 'code-input-field-1', 'download-udef-button')."
+  },
+  "instructions_to_main_agent": [
+    "Use standard HTML elements styled with Tailwind for the grid and structural layouts instead of Shadcn Cards to achieve the 'Control Room' / Technical look.",
+    "Apply 'font-mono' specifically to data points, session counters, statuses, and codes.",
+    "Install the required font families from Google Fonts (Outfit, Inter, JetBrains Mono) and map them in tailwind.config.js.",
+    "Include lucide-react and framer-motion as dependencies.",
+    "The 6-digit code display should be the highest-contrast, most prominent element on the screen when active.",
+    "Never use generic rounded borders (rounded-md/lg); enforce 'rounded-none' to maintain the strict Brutalist/Technical aesthetic.",
+    "Implement a marquee or scrolling console log for the 'Active Sessions Counter' or system logs to amplify the terminal feel."
+  ]
+}
