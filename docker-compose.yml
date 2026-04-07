@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # Redis for distributed sessions
+  redis:
+    image: redis:7-alpine
+    container_name: cyphershare-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      - cyphershare-network
+
+  # PostgreSQL for user data
+  postgres:
+    image: postgres:15-alpine
+    container_name: cyphershare-postgres
+    environment:
+      POSTGRES_DB: cyphershare
+      POSTGRES_USER: cyphershare
+      POSTGRES_PASSWORD: cyphershare_secure_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cyphershare"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      - cyphershare-network
+
+  # Backend service
+  backend:
+    build:
+      context: ./cyphershare-backend
+      dockerfile: Dockerfile
+    container_name: cyphershare-backend
+    ports:
+      - "8001:8001"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=cyphershare
+      - POSTGRES_USER=cyphershare
+      - POSTGRES_PASSWORD=cyphershare_secure_2026
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - cyphershare-network
+    restart: unless-stopped
+
+  # Frontend service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cyphershare-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8001
+    depends_on:
+      - backend
+    networks:
+      - cyphershare-network
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  postgres-data:
+
+networks:
+  cyphershare-network:
+    driver: bridge

@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cyphershare-ingress
+  namespace: cyphershare
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "5g"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+spec:
+  tls:
+  - hosts:
+    - cyphershare.yourdomain.com
+    secretName: cyphershare-tls
+  rules:
+  - host: cyphershare.yourdomain.com
+    http:
+      paths:
+      # Backend API routes
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: cyphershare-backend
+            port:
+              number: 8001
+      # Frontend routes
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cyphershare-frontend
+            port:
+              number: 80

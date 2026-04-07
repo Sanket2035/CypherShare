@@ -1,0 +1,35 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cyphershare-backend
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    timeout: 60000
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:cyphershare}
+    username: ${POSTGRES_USER:cyphershare}
+    password: ${POSTGRES_PASSWORD:cyphershare}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+cyphershare:
+  session:
+    timeout-minutes: 10
+    cleanup-interval-minutes: 5
+    use-redis: true
+  license:
+    mock-key: CYPHERSHARE_BUSINESS_2026
+
+logging:
+  level:
+    com.cyphershare: INFO
+    org.springframework.web: INFO
