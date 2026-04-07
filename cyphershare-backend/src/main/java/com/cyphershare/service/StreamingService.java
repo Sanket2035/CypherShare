@@ -34,23 +34,22 @@ public class StreamingService {
         session.setFileName(fileName);
         session.setFileSize(fileSize);
         
-        // Create piped streams
-        PipedInputStream pipedInput = new PipedInputStream(PIPE_SIZE);
-        PipedOutputStream pipedOutput = new PipedOutputStream(pipedInput);
-        
-        // Generate encryption key and IV
-        SecretKey key = encryptionService.generateKey();
-        byte[] iv = encryptionService.generateIV();
-        
-        // Wrap output stream with compression and encryption layers
-        OutputStream compressedStream = compressionService.wrapWithCompression(pipedOutput);
-        OutputStream encryptedStream = encryptionService.wrapWithEncryption(compressedStream, key, iv);
-        
-        session.setSenderStream(encryptedStream);
-        session.setReceiverStream(pipedInput);
-        
-        logger.info("Streaming pipeline created for session: {} with file: {}", code, fileName);
-        return session;
+        try {
+            // Create piped streams with larger buffer
+            PipedInputStream pipedInput = new PipedInputStream(PIPE_SIZE);
+            PipedOutputStream pipedOutput = new PipedOutputStream(pipedInput);
+            
+            // For MVP: Direct pipe without compression/encryption complexity
+            // TODO: Add UDEF compression and AES-256 encryption layers after core works
+            session.setSenderStream(pipedOutput);
+            session.setReceiverStream(pipedInput);
+            
+            logger.info("Streaming pipeline created for session: {} with file: {}", code, fileName);
+            return session;
+        } catch (Exception e) {
+            logger.error("Failed to create streaming pipeline: {}", e.getMessage(), e);
+            throw e;
+        }
     }
     
     /**
