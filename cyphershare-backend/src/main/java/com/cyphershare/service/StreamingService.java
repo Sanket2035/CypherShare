@@ -46,7 +46,7 @@ public class StreamingService {
         OutputStream compressedStream = compressionService.wrapWithCompression(pipedOutput);
         OutputStream encryptedStream = encryptionService.wrapWithEncryption(compressedStream, key, iv);
         
-        session.setSenderStream((PipedOutputStream) encryptedStream);
+        session.setSenderStream(encryptedStream);
         session.setReceiverStream(pipedInput);
         
         logger.info("Streaming pipeline created for session: {} with file: {}", code, fileName);

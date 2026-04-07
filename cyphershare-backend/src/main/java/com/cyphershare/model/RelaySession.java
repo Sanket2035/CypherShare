@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.OutputStream;
 import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @AllArgsConstructor
 public class RelaySession {
     private String code;
-    private PipedOutputStream senderStream;
+    private OutputStream senderStream;
     private PipedInputStream receiverStream;
     private Instant createdAt;
     private String fileName;
